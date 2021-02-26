@@ -8,6 +8,18 @@ repositories {
 }
 
 dependencies {
+    // Apache Thrift
+    compile 'org.apache.thrift:libthrift:0.13.0'
+
+    // Apache Log4j
+    compile 'org.apache.logging.log4j:log4j-core:2.14.0'
+    compile 'org.apache.logging.log4j:log4j-api:2.14.0'
+
+    // Apache Commons Configuration2
+    compile 'org.apache.commons:commons-configuration2:2.7'
+    compile 'commons-beanutils:commons-beanutils:1.9.4'
+
+    // Default
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
 }
