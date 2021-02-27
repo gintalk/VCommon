@@ -1,4 +1,4 @@
-package com.vgu.cs.common.server;
+package com.vgu.cs.common.server.thrift;
 
 /*
  * Copyright (c) 2012-2016 by Zalo Group.

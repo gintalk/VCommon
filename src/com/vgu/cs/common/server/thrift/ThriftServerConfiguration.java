@@ -1,4 +1,4 @@
-package com.vgu.cs.common.server;
+package com.vgu.cs.common.server.thrift;
 
 /*
  * Copyright (c) 2012-2016 by Zalo Group.
@@ -8,8 +8,6 @@ package com.vgu.cs.common.server;
  */
 
 import org.apache.thrift.server.TThreadedSelectorServer.Args.AcceptPolicy;
-
-import java.util.Arrays;
 
 public class ThriftServerConfiguration {
 
