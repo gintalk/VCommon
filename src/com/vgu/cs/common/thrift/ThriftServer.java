@@ -1,4 +1,4 @@
-package com.vgu.cs.common.server.thrift;
+package com.vgu.cs.common.thrift;
 
 /*
  * Copyright (c) 2012-2016 by Zalo Group.
@@ -11,8 +11,10 @@ import com.vgu.cs.common.concurrent.VThreadFactory;
 import com.vgu.cs.common.config.VConfig;
 import com.vgu.cs.common.exception.InvalidParameterException;
 import com.vgu.cs.common.logger.VLogger;
+import com.vgu.cs.common.server.InstanceList;
 import com.vgu.cs.common.util.NumberUtils;
 import com.vgu.cs.common.util.StringUtils;
+import com.vgu.cs.common.util.VUtils;
 import org.apache.logging.log4j.Logger;
 import org.apache.thrift.TProcessor;
 import org.apache.thrift.protocol.TBinaryProtocol;
@@ -31,6 +33,7 @@ import java.net.UnknownHostException;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ThriftServer {
 
@@ -38,6 +41,7 @@ public class ThriftServer {
     private static final Logger LOGGER = VLogger.getLogger(ThriftServer.class);
     private final ThriftServerConfiguration _configuration;
     private final String _name;
+    private final AtomicBoolean _running;
     private ThreadPoolExecutor _executor;
     private TServer _server;
     private Class<? extends TServer> _serverClass;
@@ -50,6 +54,7 @@ public class ThriftServer {
         } else {
             this._name = name.trim();
         }
+        this._running = new AtomicBoolean(false);
         this._serverClass = null;
         this._info = null;
     }
@@ -233,5 +238,51 @@ public class ThriftServer {
         ;
 
         INSTANCES.add(this);
+    }
+
+    public boolean start() {
+        if (this._server == null) {
+            LOGGER.error("Server has not been setup. Please call registerProcessor(TProcessor processor) beforehand");
+            return false;
+        }
+
+        if (!this._running.compareAndSet(false, true)) {
+            LOGGER.warn("Server is running");
+            return true;
+        }
+
+        Thread thread = new Thread(
+                new ServerRunner(this._server, this._running),
+                this.getClass().getSimpleName() + "-" + this._name + "-" + VUtils.nextGID()
+        );
+        thread.start();
+
+        return true;
+    }
+
+    private static class ServerRunner implements Runnable {
+        private final TServer _server;
+        private final AtomicBoolean _running;
+
+        public ServerRunner(TServer server, AtomicBoolean running) {
+            assert server != null && running != null;
+
+            this._server = server;
+            this._running = running;
+        }
+
+        @Override
+        public void run() {
+            ThriftServer.LOGGER.info("Thrift Server is going to server");
+
+            try {
+                this._server.serve();
+            } catch (Exception e) {
+                ThriftServer.LOGGER.error(e.getMessage(), e);
+            }
+
+            ThriftServer.LOGGER.info("Thrift Server stopped");
+            this._running.set(false);
+        }
     }
 }
