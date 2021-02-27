@@ -7,28 +7,26 @@ package com.vgu.cs.common.server;
  * @author namnh16 on 25/02/2021
  */
 
-import org.apache.logging.log4j.core.Logger;
+import com.vgu.cs.common.config.VConfig;
 import org.apache.thrift.TProcessor;
 import org.apache.thrift.server.TServer;
 
 public class ThriftServer {
 
-    private TServer _server;
     private final ThriftServerConfiguration _configuration = new ThriftServerConfiguration();
+    private TServer _server;
 
-//    public boolean registerProcessor(TProcessor processor){
-//        if(this._server != null){
-//            System.out.println("[WARN] Server has already been setup");
-//            return true;
-//        }
-//
-//        try{
-//            assert processor != null;
-//
-//        }
-//    }
-//
-//    private <T extends Enum<T>> T readEnumConfig(Class<T> enumType, String key, T defaultValue){
-//
-//    }
+    public boolean registerProcessor(TProcessor processor) {
+        if (this._server != null) {
+            System.out.println("[WARN] Server has already been setup");
+            return true;
+        }
+
+        try {
+            assert processor != null;
+
+            this._configuration.serverType = VConfig.INSTANCE.getEnum(ThriftServer.class, ThriftServerType.class, "serverType", this._configuration.serverType);
+            
+        }
+    }
 }

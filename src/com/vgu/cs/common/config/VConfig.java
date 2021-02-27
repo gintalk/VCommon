@@ -103,7 +103,7 @@ public class VConfig {
     public int getInt(Class<?> clazz, String key, int def) {
         try {
             return Integer.parseInt(_getProperty(_buildMapKey(_classToSectionName(clazz), key)));
-        } catch (NotExistException | InvalidParameterException e) {
+        } catch (NumberFormatException | NotExistException | InvalidParameterException e) {
             return def;
         }
     }
@@ -111,7 +111,7 @@ public class VConfig {
     public short getShort(Class<?> clazz, String key, short def) {
         try {
             return Short.parseShort(_getProperty(_buildMapKey(_classToSectionName(clazz), key)));
-        } catch (NotExistException | InvalidParameterException e) {
+        } catch (NumberFormatException | NotExistException | InvalidParameterException e) {
             return def;
         }
     }
@@ -119,6 +119,23 @@ public class VConfig {
     public String getString(Class<?> clazz, String key, String def) {
         try {
             return _getProperty(_buildMapKey(_classToSectionName(clazz), key));
+        } catch (NotExistException | InvalidParameterException e) {
+            return def;
+        }
+    }
+
+    public boolean getBoolean(Class<?> clazz, String key) {
+        try {
+            return Boolean.parseBoolean(_getProperty(_buildMapKey(_classToSectionName(clazz), key)));
+        } catch (NotExistException | InvalidParameterException e) {
+            return false;
+        }
+    }
+
+    public <T extends Enum<T>> T getEnum(Class<?> clazz, Class<T> enumType, String key, T def) {
+        try {
+            String value = _getProperty(_getProperty(_buildMapKey(_classToSectionName(clazz), key)));
+            return Enum.valueOf(enumType, value);
         } catch (NotExistException | InvalidParameterException e) {
             return def;
         }
