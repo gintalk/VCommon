@@ -25,7 +25,6 @@ public class ThriftServerConfiguration {
     public AcceptPolicy acceptPolicy;
     public int acceptQueueSizePerThread;
     public int nselectorThreads;
-    public byte[] encryptVersionPriority;
 
     public ThriftServerConfiguration(){
         this.serverType = ThriftServerType.THREADED_SELECTOR;
@@ -40,7 +39,6 @@ public class ThriftServerConfiguration {
         this.acceptPolicy = AcceptPolicy.FAST_ACCEPT;
         this.acceptQueueSizePerThread = 64;
         this.nselectorThreads = 8;
-        this.encryptVersionPriority = null;
     }
 
     public ThriftServerConfiguration clone() {
@@ -57,7 +55,6 @@ public class ThriftServerConfiguration {
         ret.acceptPolicy = this.acceptPolicy;
         ret.acceptQueueSizePerThread = this.acceptQueueSizePerThread;
         ret.nselectorThreads = this.nselectorThreads;
-        ret.encryptVersionPriority = this.encryptVersionPriority == null ? null : Arrays.copyOf(this.encryptVersionPriority, this.encryptVersionPriority.length);
 
         return ret;
     }

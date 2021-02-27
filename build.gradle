@@ -9,10 +9,9 @@ repositories {
 
 dependencies {
     // Apache Thrift
-    compile 'org.apache.thrift:libthrift:0.13.0'
+    compile 'org.apache.thrift:libthrift:0.14.0'
 
     // Apache Log4j
-    compile 'org.apache.logging.log4j:log4j-core:2.14.0'
     compile 'org.apache.logging.log4j:log4j-api:2.14.0'
 
     // Apache Commons Configuration2

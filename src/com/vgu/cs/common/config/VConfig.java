@@ -124,11 +124,38 @@ public class VConfig {
         }
     }
 
-    public boolean getBoolean(Class<?> clazz, String key) {
+    public boolean getBoolean(Class<?> clazz, String key, boolean def) {
         try {
-            return Boolean.parseBoolean(_getProperty(_buildMapKey(_classToSectionName(clazz), key)));
+            String value = _getProperty(_buildMapKey(_classToSectionName(clazz), key));
+            value = value.trim();
+
+            if (value.equalsIgnoreCase("true")) {
+                return true;
+            }
+            if (value.equalsIgnoreCase("false")) {
+                return false;
+            }
+            if (value.equalsIgnoreCase("yes")) {
+                return true;
+            }
+            if (value.equalsIgnoreCase("no")) {
+                return false;
+            }
+            if (value.equalsIgnoreCase("on")) {
+                return true;
+            }
+            if (value.equalsIgnoreCase("off")) {
+                return false;
+            }
+            if (value.equalsIgnoreCase("1")) {
+                return true;
+            }
+            if (value.equalsIgnoreCase("0")) {
+                return false;
+            }
+            return def;
         } catch (NotExistException | InvalidParameterException e) {
-            return false;
+            return def;
         }
     }
 
@@ -136,6 +163,27 @@ public class VConfig {
         try {
             String value = _getProperty(_getProperty(_buildMapKey(_classToSectionName(clazz), key)));
             return Enum.valueOf(enumType, value);
+        } catch (NotExistException | InvalidParameterException e) {
+            return def;
+        }
+    }
+
+    public byte[] getByteArray(Class<?> clazz, String key, byte[] def) {
+        try {
+            String values = _getProperty(_buildMapKey(_classToSectionName(clazz), key));
+            String[] valueArr = values.split("[,&]");
+            if (valueArr.length == 0) {
+                return def;
+            }
+
+            byte[] ret = new byte[valueArr.length];
+            for (int i = 0; i < valueArr.length; i++) {
+                if (valueArr[i] == null) {
+                    continue;
+                }
+                ret[i] = Byte.parseByte(valueArr[i].trim());
+            }
+            return ret;
         } catch (NotExistException | InvalidParameterException e) {
             return def;
         }
