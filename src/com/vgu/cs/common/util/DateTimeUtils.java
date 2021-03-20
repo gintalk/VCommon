@@ -14,9 +14,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class DatetimeUtils {
+public class DateTimeUtils {
 
-    private static final Logger LOGGER = VLogger.getLogger(DatetimeUtils.class);
+    private static final Logger LOGGER = VLogger.getLogger(DateTimeUtils.class);
 
     public static Date parseDate(String dateString) {
         return parse("yyyy/MM/dd", dateString);
@@ -34,5 +34,15 @@ public class DatetimeUtils {
             LOGGER.error(e.getMessage(), e);
             return new Date();
         }
+    }
+
+    public static Date parseDateOrDateTime(String date, String dateTime) {
+        if (StringUtils.isNullOrEmpty(dateTime)) {
+            if (StringUtils.isNullOrEmpty(date)) {
+                return null;
+            }
+            return parseDate(date);
+        }
+        return parseDatetime(dateTime);
     }
 }
