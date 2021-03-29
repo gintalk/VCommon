@@ -29,6 +29,9 @@ dependencies {
     compile 'org.eclipse.jetty:jetty-servlet:9.4.15.v20190215'
     compile 'org.mortbay.jetty:jetty:6.1.25'
 
+    // Misc
+    compile 'com.jsoniter:jsoniter:0.9.23'
+
     // Default
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'

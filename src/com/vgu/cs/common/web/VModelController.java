@@ -7,28 +7,27 @@ package com.vgu.cs.common.web;
  * @author namnh16 on 28/03/2021
  */
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class VModelController {
     public static final VModelController INSTANCE = new VModelController();
-    private final Map<String, VModel<? extends IRequest>> MODEL_BY_CONTAINER;
+    private final Map<String, VModel<? extends VRequest>> MODEL_MAP;
 
     private VModelController() {
-        MODEL_BY_CONTAINER = new HashMap<>();
+        MODEL_MAP = new ConcurrentHashMap<>();
     }
 
-    public synchronized <T extends IRequest> void register(VModel<T> model, String version, String container, String group) {
-        MODEL_BY_CONTAINER.put(_buildKey(version, container, group), model);
+    public <T extends VRequest> void registerModel(VModel<T> model, String container, String group, String version) {
+        MODEL_MAP.put(_buildKey(container, group, version), model);
     }
-
 
     @SuppressWarnings("unchecked")
-    public <T extends IRequest> VModel<T> getModel(VPath.Detail pathDetail) {
-        return (VModel<T>) MODEL_BY_CONTAINER.get(_buildKey(pathDetail.getVersion(), pathDetail.getContainer(), pathDetail.getGroup()));
+    public <T extends VRequest> VModel<T> getModel(String container, String group, String version) {
+        return (VModel<T>) MODEL_MAP.get(_buildKey(container, group, version));
     }
 
-    private String _buildKey(String version, String container, String group) {
-        return String.format("%s.%s.%s", version.toUpperCase(), container.toUpperCase(), group.toUpperCase());
+    private String _buildKey(String container, String group, String version) {
+        return String.format("%s.%s.%s", container, group, version);
     }
 }

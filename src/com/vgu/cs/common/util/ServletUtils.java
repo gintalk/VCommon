@@ -34,4 +34,34 @@ public class ServletUtils {
             return false;
         }
     }
+
+    public static int getInt(HttpServletRequest req, String key){
+        return getInt(req, key, 0);
+    }
+
+    public static int getInt(HttpServletRequest req, String key, int def){
+        String value = req.getParameter(key);
+        if(StringUtils.isNullOrEmpty(value)){
+            return def;
+        }
+
+        try{
+            return Integer.parseInt(value);
+        } catch (NumberFormatException ex){
+            return def;
+        }
+    }
+
+    public static String getString(HttpServletRequest req, String key){
+        return getString(req, key, "");
+    }
+
+    public static String getString(HttpServletRequest req, String key, String def){
+        String value = req.getParameter(key);
+        if(value == null){
+            return def;
+        }
+
+        return value.trim();
+    }
 }

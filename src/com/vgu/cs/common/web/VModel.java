@@ -17,21 +17,25 @@ import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public abstract class VModel<T extends IRequest> {
+public abstract class VModel<T extends VRequest> {
 
     private static final Logger LOGGER = VLogger.getLogger(VModel.class);
     private final Map<String, Method> METHOD_MAP;
     private final Class<T> CLAZZ;
 
-    public VModel(Class<T> clazz, String container, String group) {
+    public VModel(Class<T> clazz, String container, String group, String version) {
         METHOD_MAP = new ConcurrentHashMap<>();
         CLAZZ = clazz;
-        _register(container, group);
+        VModelController.INSTANCE.registerModel(this, container, group, version);
     }
 
     public VResponse doProcess(VRequest req) {
         try {
-            VModel<T> model = VModelController.INSTANCE.getModel(req.getPath().detail);
+            VModel<T> model = VModelController.INSTANCE.getModel(
+                    req.getPath().detail.getContainer(),
+                    req.getPath().detail.getGroup(),
+                    req.getPath().detail.getVersion()
+            );
             if (model == null) {
                 return new VResponse(TStatusCode.FAIL);
             }
@@ -56,9 +60,4 @@ public abstract class VModel<T extends IRequest> {
     }
 
     public abstract T buildRequest(HttpServletRequest req, HttpServletResponse res, VPath path);
-
-    private void _register(String container, String group) {
-
-    }
-
 }
