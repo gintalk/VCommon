@@ -7,15 +7,19 @@ package com.vgu.cs.common.web;
  * @author namnh16 on 26/03/2021
  */
 
+import com.vgu.cs.common.logger.VLogger;
+import com.vgu.cs.common.web.thrift.TStatusCode;
+import org.apache.logging.log4j.Logger;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public abstract class VModel<T extends IRequest> {
 
+    private static final Logger LOGGER = VLogger.getLogger(VModel.class);
     private final Map<String, Method> METHOD_MAP;
     private final Class<T> CLAZZ;
 
@@ -25,27 +29,36 @@ public abstract class VModel<T extends IRequest> {
         _register(container, group);
     }
 
+    public VResponse doProcess(VRequest req) {
+        try {
+            VModel<T> model = VModelController.INSTANCE.getModel(req.getPath().detail);
+            if (model == null) {
+                return new VResponse(TStatusCode.FAIL);
+            }
+
+            String methodName = req.getPath().detail.getMethodName();
+            String methodKey = req.getPath().detail.getVersion() + "." + methodName;
+
+            Method method;
+            if (METHOD_MAP.containsKey(methodKey)) {
+                method = METHOD_MAP.get(methodKey);
+            } else {
+                method = model.getClass().getMethod(methodName, CLAZZ);
+                method.setAccessible(true);
+                METHOD_MAP.put(methodKey, method);
+            }
+
+            return (VResponse) method.invoke(model, req);
+        } catch (Exception ex){
+            LOGGER.error(ex.getMessage(), ex);
+            return new VResponse(TStatusCode.FAIL);
+        }
+    }
+
     public abstract T buildRequest(HttpServletRequest req, HttpServletResponse res, VPath path);
 
     private void _register(String container, String group) {
-        ModelController.INSTANCE.register(this, "V1", container, group);
+
     }
 
-    public static class ModelController {
-
-        public static final ModelController INSTANCE = new ModelController();
-        private final Map<String, VModel<?>> MODEL_BY_CONTAINER;
-
-        private ModelController() {
-            MODEL_BY_CONTAINER = new HashMap<>();
-        }
-
-        public synchronized void register(VModel<?> model, String version, String container, String group) {
-            MODEL_BY_CONTAINER.put(_buildKey(version, container, group), model);
-        }
-
-        private String _buildKey(String version, String container, String group) {
-            return String.format("%s.%s.%s", version.toUpperCase(), container.toUpperCase(), group.toUpperCase());
-        }
-    }
 }

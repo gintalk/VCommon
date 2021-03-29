@@ -25,8 +25,8 @@ dependencies {
     compile 'org.apache.commons:commons-pool2:2.9.0'
 
     // Jetty
-    compile 'org.eclipse.jetty:jetty-server:11.0.1'
-    compile 'org.eclipse.jetty:jetty-servlet:11.0.1'
+    compile 'org.eclipse.jetty:jetty-server:9.4.15.v20190215'
+    compile 'org.eclipse.jetty:jetty-servlet:9.4.15.v20190215'
     compile 'org.mortbay.jetty:jetty:6.1.25'
 
     // Default

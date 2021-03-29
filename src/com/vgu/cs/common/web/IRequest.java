@@ -16,41 +16,11 @@ public interface IRequest {
 
     VResponse getApiResponse();
 
-    String getAppVersion();
-
-    int getAppVersionNum();
-
-    String getClientIp();
-
-    long getClientTime();
-
-    int getCountryCode();
-
-    long getCurTime();
-
-    String getDeviceId();
-
-    String getLanguageCode();
-
-    String getOs();
-
-    String getOsVersion();
+    long getCurrentTime();
 
     VPath getPath();
-
-    String getSession();
-
-    void setSession(String session);
-
-    int getUserId();
-
-    void setUserId(int userId);
 
     HttpServletRequest getHRequest();
 
     HttpServletResponse getHResponse();
-
-    String getDeviceInfo();
-
-    String getPublicKey();
 }

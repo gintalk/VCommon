@@ -8,7 +8,9 @@ package com.vgu.cs.common.web;
  */
 
 import com.vgu.cs.common.common.StringBuilderPool;
+import com.vgu.cs.common.logger.VLogger;
 import com.vgu.cs.common.util.StringUtils;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -17,6 +19,7 @@ import java.util.regex.Pattern;
 
 public class VPath {
 
+    private static final Logger LOGGER = VLogger.getLogger(VPath.class);
     private static final Pattern PATTERN = Pattern.compile("^/(v\\d)/(.+)/(.+)/(.+)/(.+)$");
     private static final Map<String, Detail> DETAIL_MAP = new ConcurrentHashMap<>();
     public String path;

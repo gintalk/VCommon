@@ -43,7 +43,7 @@ public class WebServer {
 
     public boolean setup(Handler handler) {
         if (_server != null) {
-            LOGGER.warn("System has already been setup");
+            LOGGER.warn("Server has already been setup");
             return true;
         }
 
@@ -103,9 +103,10 @@ public class WebServer {
 
     public boolean start() {
         if (_server == null) {
+            LOGGER.error("Null server");
             return false;
         }
-        if (_isRunning.compareAndSet(false, true)) {
+        if (!_isRunning.compareAndSet(false, true)) {
             LOGGER.warn("Server is already running");
             return true;
         }
