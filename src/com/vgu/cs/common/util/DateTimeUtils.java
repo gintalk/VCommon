@@ -24,11 +24,11 @@ public class DateTimeUtils {
     }
     
     public static Date parseDate(String dateString) {
-        return parse("yyyy/MM/dd", dateString);
+        return parse("yyyy-MM-dd", dateString);
     }
     
     public static Date parseDatetime(String datetimeString) {
-        return parse("yyyy/MM/dd HH:mm:ss", datetimeString);
+        return parse("yyyy-MM-dd HH:mm:ss", datetimeString);
     }
     
     public static Date parse(String pattern, String source) {
@@ -51,11 +51,11 @@ public class DateTimeUtils {
     }
     
     public static String getDateString(Date date) {
-        return getString("yyyy/MM/dd", date);
+        return getString("yyyy-MM-dd", date);
     }
     
     public static String getDateTimeString(Date date) {
-        return getString("yyyy/MM/dd HH:mm:ss", date);
+        return getString("yyyy-MM-dd HH:mm:ss", date);
     }
     
     public static String getString(String pattern, Date date) {
@@ -93,8 +93,8 @@ public class DateTimeUtils {
     // Private
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     private static void _populateFormatterMap() {
-        FORMATTER_MAP.put("yyyy/MM/dd", new SimpleDateFormat("yyyy/MM/dd"));
-        FORMATTER_MAP.put("yyyy/MM/dd HH:mm:ss", new SimpleDateFormat("yyyy/MM/dd HH:mm:ss"));
+        FORMATTER_MAP.put("yyyy-MM-dd", new SimpleDateFormat("yyyy-MM-dd"));
+        FORMATTER_MAP.put("yyyy-MM-dd HH:mm:ss", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
     }
     
     private static SimpleDateFormat _getDateFormatter(String pattern) {
