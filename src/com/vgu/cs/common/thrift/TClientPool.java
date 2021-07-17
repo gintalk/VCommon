@@ -1,12 +1,5 @@
 package com.vgu.cs.common.thrift;
 
-/*
- * Copyright (c) 2012-2016 by Zalo Group.
- * All Rights Reserved.
- *
- * @author namnh16 on 03/03/2021
- */
-
 import org.apache.commons.pool2.ObjectPool;
 import org.apache.thrift.TServiceClient;
 

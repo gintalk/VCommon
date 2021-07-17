@@ -1,12 +1,5 @@
 package com.vgu.cs.common.logger;
 
-/*
- * Copyright (c) 2012-2016 by Zalo Group.
- * All Rights Reserved.
- *
- * @author namnh16 on 26/02/2021
- */
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

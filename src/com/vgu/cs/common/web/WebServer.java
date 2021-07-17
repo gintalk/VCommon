@@ -1,12 +1,5 @@
 package com.vgu.cs.common.web;
 
-/*
- * Copyright (c) 2012-2016 by Zalo Group.
- * All Rights Reserved.
- *
- * @author namnh16 on 25/03/2021
- */
-
 import com.vgu.cs.common.config.VConfig;
 import com.vgu.cs.common.logger.VLogger;
 import com.vgu.cs.common.server.InstanceList;

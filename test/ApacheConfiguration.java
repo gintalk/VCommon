@@ -1,10 +1,3 @@
-/*
- * Copyright (c) 2012-2016 by Zalo Group.
- * All Rights Reserved.
- *
- * @author namnh16 on 26/02/2021
- */
-
 import com.vgu.cs.common.system.VSystemProperty;
 import org.apache.commons.configuration2.INIConfiguration;
 import org.apache.commons.configuration2.builder.FileBasedConfigurationBuilder;

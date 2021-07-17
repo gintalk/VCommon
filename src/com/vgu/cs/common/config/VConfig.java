@@ -1,12 +1,5 @@
 package com.vgu.cs.common.config;
 
-/*
- * Copyright (c) 2012-2016 by Zalo Group.
- * All Rights Reserved.
- *
- * @author namnh16 on 26/02/2021
- */
-
 import com.vgu.cs.common.exception.InvalidParameterException;
 import com.vgu.cs.common.exception.NotExistException;
 import com.vgu.cs.common.system.VSystemProperty;

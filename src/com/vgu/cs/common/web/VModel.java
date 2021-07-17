@@ -1,12 +1,5 @@
 package com.vgu.cs.common.web;
 
-/*
- * Copyright (c) 2012-2016 by Zalo Group.
- * All Rights Reserved.
- *
- * @author namnh16 on 26/03/2021
- */
-
 import com.vgu.cs.common.logger.VLogger;
 import com.vgu.cs.common.web.thrift.TStatusCode;
 import org.apache.logging.log4j.Logger;

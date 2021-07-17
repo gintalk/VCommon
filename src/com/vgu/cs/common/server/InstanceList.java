@@ -1,12 +1,5 @@
 package com.vgu.cs.common.server;
 
-/*
- * Copyright (c) 2012-2016 by Zalo Group.
- * All Rights Reserved.
- *
- * @author namnh16 on 27/02/2021
- */
-
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;

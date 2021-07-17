@@ -1,12 +1,5 @@
 package com.vgu.cs.common.util;
 
-/*
- * Copyright (c) 2012-2016 by Zalo Group.
- * All Rights Reserved.
- *
- * @author namnh16 on 15/03/2021
- */
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

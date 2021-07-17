@@ -1,12 +1,5 @@
 package com.vgu.cs.common.util;
 
-/*
- * Copyright (c) 2012-2016 by Zalo Group.
- * All Rights Reserved.
- *
- * @author namnh16 on 20/04/2021
- */
-
 public class ConvertUtils {
     
     public static int toInteger(Object in) {

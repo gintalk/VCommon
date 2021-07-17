@@ -1,12 +1,5 @@
 package com.vgu.cs.common.thrift;
 
-/*
- * Copyright (c) 2012-2016 by Zalo Group.
- * All Rights Reserved.
- *
- * @author namnh16 on 25/02/2021
- */
-
 import org.apache.thrift.server.TThreadedSelectorServer.Args.AcceptPolicy;
 
 public class ThriftServerConfiguration {

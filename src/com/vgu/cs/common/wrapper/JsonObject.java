@@ -1,12 +1,5 @@
 package com.vgu.cs.common.wrapper;
 
-/*
- * Copyright (c) 2012-2016 by Zalo Group.
- * All Rights Reserved.
- *
- * @author namnh16 on 29/03/2021
- */
-
 import com.jsoniter.any.Any;
 import com.jsoniter.output.JsonStream;
 import com.jsoniter.spi.TypeLiteral;
